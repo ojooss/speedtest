@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+
+  database:
+    container_name: speedtest-database
+    restart: always
+    image: jsurf/rpi-mariadb:latest
+    volumes:
+      - "./data:/var/lib/mysql"
+      - "./bootstrap.sql:/docker-entrypoint-initdb.d/bootstrap.sql"
+    environment:
+      MYSQL_ROOT_PASSWORD: speedtest
+      MYSQL_DATABASE: speedtest
+      MYSQL_USER: speedtest
+      MYSQL_PASSWORD: speedtest
+      TZ: Europe/Berlin
+    ports:
+      - "${DB_PORT}:3306"
+
+  app:
+    container_name: speedtest-app
+    image: speedtest:local
+    build:
+      context: .
+    command: /bin/bash /app/run.sh
+    volumes:
+      - "./:/app"
