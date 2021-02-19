@@ -14,14 +14,14 @@ To run a test maybe by a cronjob call this command:
 ## "manual" read logfile
 It is possible to read full logfile with this command
 
-    docker-compose run --rm app /app/batch.sh /app/logs/speedtest.2020-03-15.log
+    docker-compose run --rm app /bin/bash /app/batch.sh /app/logs/speedtest.2020-03-15.log
 
 Make sure database has been started before
 
 ## "batch logs"
 To import a bunch of files call
 
-    for FILE in `find ./logs -type f -name "*.log"`; do docker-compose run --rm app /app/batch.sh /app/$FILE; done
+    for FILE in `find ./logs -type f -name "*.log"`; do docker-compose run --rm app /bin/bash /app/batch.sh /app/$FILE; done
 
 ## Development
 Due to different architecture a different MariaDB docker image is used for development
